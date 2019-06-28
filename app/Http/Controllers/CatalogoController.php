@@ -129,8 +129,8 @@ class CatalogoController extends Controller
         
     }
 
-    public function email($receivers, $cat){
-        $receivers = User::where('rol_id', '!=', 3)->select('email')->get();
-        Mail::to($receivers)->send(new EnviarAlerta($cat));
+    public function email($cat){
+        $receivers = User::where('rol_id', '!=', 3)->select('email')->get(); 
+        Mail::to($receivers->pluck('email'))->send(new EnviarAlerta($cat));
     }
 }
